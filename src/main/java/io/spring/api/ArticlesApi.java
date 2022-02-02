@@ -9,6 +9,7 @@ import io.spring.core.user.User;
 import java.util.HashMap;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,12 +36,12 @@ public class ArticlesApi {
   public ResponseEntity createArticle(
       @Valid @RequestBody NewArticleParam newArticleParam, @AuthenticationPrincipal User user) {
     Article article = articleCommandService.createArticle(newArticleParam, user);
-    return ResponseEntity.ok(
+    return new ResponseEntity(
         new HashMap<String, Object>() {
           {
             put("article", articleQueryService.findById(article.getId(), user).get());
           }
-        });
+        }, HttpStatus.CREATED);
   }
 
   @GetMapping(path = "feed")
