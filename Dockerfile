@@ -6,13 +6,11 @@ EXPOSE 8080
 
 USER root
 
-RUN apk update
-
 ENV GRADLE_USER_HOME /home/gradle/project
 
 COPY . /home/gradle/project
 
-RUN ./gradlew build
+RUN ./gradlew build -x test
 
 
 FROM java:jre-alpine
