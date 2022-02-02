@@ -1,4 +1,4 @@
-FROM gradle:6-jdk-alpine
+FROM gradle:6.9.2-jdk11
 
 WORKDIR /home/gradle/project
 
